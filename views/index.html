@@ -1,0 +1,103 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+
+<!-- You might want to try something fancier: -->
+<!-- html/nunjucks docs: https://mozilla.github.io/nunjucks/ -->
+<!-- pug: https://pugjs.org/ -->
+<!-- haml: http://haml.info/ -->
+<!-- hbs(handlebars): http://handlebarsjs.com/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Welcome to Glitch!</title>
+    <meta name="description" content="A cool thing made with Glitch">
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/client.js" defer></script>
+  </head>
+  <body>
+    <div class="top">
+    <header>
+      <h1>
+        ISQA_5 - Nasdaq Stock Price Checker
+      </h1>
+    </header>
+
+    <main>
+      <p class="bold">User Stories</p>
+      <ol>
+        <li>Set the content security policies to only allow loading of scripts and css from your server.
+</li>
+        <li>I can <b>GET</b> <code>/api/stock-prices</code> with form data containing a Nasdaq <i>stock</i> ticker and recieve back an object <i>stockData</i>.
+</li>
+        <li>In <i>stockData</i>, I can see the <i>stock</i>(string, the ticker), <i>price</i>(decimal in string format), and <i>likes</i>(int).
+</li>
+        <li>I can also pass along field <i>like</i> as <b>true</b>(boolean) to have my like added to the stock(s). Only 1 like per ip should be accepted.
+</li>
+        <li>If I pass along 2 stocks, the return object will be an array with both stock's info but instead of <i>likes</i>, it will display <i>rel_likes</i>(the difference betwwen the likes) on both.
+</li>
+        <li>A good way to recieve current price is the following external API(replacing 'GOOG' with your stock):<br> <code>https://finance.google.com/finance/info?q=NASDAQ%3aGOOG</code>
+</li>
+        <li>All 5 functional tests are complete and passing.
+</li>        
+      </ol>
+
+      
+      <p class= "bold">Example Usage:</p>
+      <p><code>
+/api/stock-prices?stock=goog <br>
+/api/stock-prices?stock=goog&like=true <br>
+/api/stock-prices?stock=goog&stock=msft <br>
+/api/stock-prices?stock=goog&stock=msft&like=true
+      </code></p>
+      
+      <p class= "bold">Example Return:</p>
+      <p><code>
+{"stockData":{"stock":"GOOG","price":"786.90","likes":1}} <br>
+{"stockData":[{"stock":"MSFT","price":"62.30","rel_likes":-1},{"stock":"GOOG","price":"786.90","rel_likes":1}]}
+      </code></p>      
+     <hr>  
+      <p class="bold">Front-End</p>
+      
+      <p class="bold">Get single prices and total likes</p>
+      
+      <form action="/api/stock-prices" method="post" id="form1">
+          <div class="left"><input name="dream1" type="text" maxlength="100" placeholder="GOOG" onblur="this.placeholder=''" onfocus="this.placeholder=''" required><input type="checkbox" class="cc" name="like"><p class="l2">
+            Like?
+            </p></div>
+        <input type="submit" value="Get Price" name="submit1" form="form1">
+      </form>
+      
+      <p class="bold">Compare and get relative likes</p>
+      
+      <form action="/api/stock-prices" method="post"  id="form2">      
+          <div class="left"><input name="dream2" type="text" maxlength="100" placeholder="GOOG" onblur="this.placeholder=''" onfocus="this.placeholder=''" required><input name="dream3" type="text" maxlength="100" placeholder="MSFT" onblur="this.placeholder=''" onfocus="this.placeholder=''" required><input type="checkbox" class="cc" name="like2"><p class="l">
+            Like Both?
+            </p></div>
+        <input type="submit" value="Get Price" name="submit2" form="form2">
+      </form>
+      
+      <section class="dreams">
+        <ul id="dream1"></ul>
+        <!--<ul id="dreams"></ul> -->
+      </section>
+    </main>
+
+    <footer>
+      Made with <a href="https://glitch.com">Glitch</a>!
+    </footer>
+
+    <!-- include the Glitch button to show what the webpage is about and
+          to make it easier for folks to view source and remix -->
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+    </div>
+  </body>
+</html>
